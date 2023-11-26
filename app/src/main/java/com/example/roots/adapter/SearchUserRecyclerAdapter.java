@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 //import com.example.roots.ChatActivity;
+import com.example.roots.ChatActivity;
 import com.example.roots.R;
 import com.example.roots.model.UserModel;
 import com.example.roots.utils.AndroidUtil;
@@ -46,7 +47,7 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
                         AndroidUtil.setProfilePic(context,uri,holder.profilePic);
                     }
                 });
-
+*/
         holder.itemView.setOnClickListener(v -> {
             //navigate to chat activity
             Intent intent = new Intent(context, ChatActivity.class);
@@ -55,7 +56,7 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
             context.startActivity(intent);
         });
 
- */
+
     }
 
     @NonNull
