@@ -1,5 +1,6 @@
 package com.example.roots;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,11 +10,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.roots.model.ChatMessageModel;
 import com.example.roots.model.ChatroomModel;
 import com.example.roots.model.UserModel;
 import com.example.roots.utils.AndroidUtil;
 import com.example.roots.utils.FirebaseUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.Arrays;
 
@@ -52,7 +57,34 @@ public class ChatActivity extends AppCompatActivity {
         });
         otherUsername.setText(otherUser.getUsername());
 
+        sendMessageBtn.setOnClickListener((v -> {
+            String message = messageInput.getText().toString().trim();
+            if(message.isEmpty())
+                return;
+            sendMessageToUser(message);
+        }));
+
         getOrCreateChatroomModel();
+    }
+
+    void sendMessageToUser(String message){
+
+        chatroomModel.setLastMessageTimestamp(Timestamp.now());
+        chatroomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
+        chatroomModel.setLastMessage(message);
+        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
+
+        ChatMessageModel chatMessageModel = new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now());
+        FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if(task.isSuccessful()){
+                            messageInput.setText("");
+                           // sendNotification(message);
+                        }
+                    }
+                });
     }
 
     void getOrCreateChatroomModel(){
