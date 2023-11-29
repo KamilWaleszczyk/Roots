@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="Nazwa Użytkownika"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/white"
@@ -60,6 +60,7 @@
         android:id="@+id/bottom_layout">
 
         <EditText
+            android:id="@+id/chat_message_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -70,9 +71,8 @@
             android:layout_toLeftOf="@id/message_send_btn"
             android:background="@drawable/edit_text_rounded_corner"
             android:elevation="4dp"
-            android:hint="Write message here"
-            android:padding="10dp"
-            android:id="@+id/chat_message_input"/>
+            android:hint="Wpisz wiadomość"
+            android:padding="10dp" />
 
         <ImageButton
             android:layout_width="48dp"
