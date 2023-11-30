@@ -113,7 +113,7 @@ public class ChatActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if(task.isSuccessful()){
                             messageInput.setText("");
-                           // sendNotification(message);
+                            sendNotification(message);
                         }
                     }
                 });
